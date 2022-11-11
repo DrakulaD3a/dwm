@@ -1,18 +1,20 @@
 /* See LICENSE file for copyright and license details. */
 
+#define TERMINAL "st"
+
 /* appearance */
 static const unsigned int borderpx  = 1;        /* border pixel of windows */
-static const unsigned int gappx		= 5;
+static const unsigned int gappx		= 6;
 static const unsigned int snap      = 32;       /* snap pixel */
 static const int showbar            = 1;        /* 0 means no bar */
 static const int topbar             = 1;        /* 0 means bottom bar */
-static const char *fonts[]          = { "monospace:size=10" };
+static const char *fonts[]          = { "monospace:size=10", "Hack Nerd Font:size=8" };
 static const char dmenufont[]       = "monospace:size=10";
 static const char col_gray1[]       = "#222222";
 static const char col_gray2[]       = "#444444";
 static const char col_gray3[]       = "#bbbbbb";
-static const char col_gray4[]       = "#eeeeee";
-static const char col_cyan[]        = "#005577";
+static const char col_gray4[]       = "#000000";
+static const char col_cyan[]        = "#FFA700";
 static const char *colors[][3]      = {
 	/*               fg         bg         border   */
 	[SchemeNorm] = { col_gray3, col_gray1, col_gray2 },
@@ -27,9 +29,9 @@ static const Rule rules[] = {
 	 *	WM_CLASS(STRING) = instance, class
 	 *	WM_NAME(STRING) = title
 	 */
-	/* class      instance    title       tags mask     isfloating   monitor */
-	{ "Gimp",     NULL,       NULL,       0,            1,           -1 },
-	{ "Firefox",  NULL,       NULL,       1 << 8,       0,           -1 },
+	/* class	  instance     title    tags mask   isfloating   isterminal   noswallow   monitor   scratch key */
+	{ "Gimp",		NULL,		NULL,		0,			1,			-1 },
+	{ "Firefox",	NULL,		NULL,		1 << 8,		0,			-1 },
 };
 
 /* layout(s) */
@@ -52,6 +54,7 @@ static const Layout layouts[] = {
 	{ MODKEY|ControlMask,           KEY,      toggleview,     {.ui = 1 << TAG} }, \
 	{ MODKEY|ShiftMask,             KEY,      tag,            {.ui = 1 << TAG} }, \
 	{ MODKEY|ControlMask|ShiftMask, KEY,      toggletag,      {.ui = 1 << TAG} },
+#define MODKEY2 Mod4Mask
 
 /* helper for spawning shell commands in the pre dwm-5.0 fashion */
 #define SHCMD(cmd) { .v = (const char*[]){ "/bin/sh", "-c", cmd, NULL } }
@@ -59,7 +62,7 @@ static const Layout layouts[] = {
 /* commands */
 static char dmenumon[2] = "0"; /* component of dmenucmd, manipulated in spawn() */
 static const char *dmenucmd[] = { "dmenu_run", "-m", dmenumon, "-fn", dmenufont, "-nb", col_gray1, "-nf", col_gray3, "-sb", col_cyan, "-sf", col_gray4, NULL };
-static const char *termcmd[]  = { "st", NULL };
+static const char *termcmd[]  = { TERMINAL, NULL };
 
 #include <X11/XF86keysym.h>
 
@@ -97,6 +100,11 @@ static const Key keys[] = {
 	TAGKEYS(                        XK_7,                      6)
 	TAGKEYS(                        XK_8,                      7)
 	TAGKEYS(                        XK_9,                      8)
+
+	{ MODKEY2|ShiftMask,	XK_l,   spawn,	   SHCMD("i3lock -i ~/Pictures/wallpapers/001.png") },
+	{ MODKEY2|ShiftMask,	XK_s,   spawn,	   SHCMD("i3lock -i ~/Pictures/wallpapers/001.png && systemctl suspend") },
+	{ MODKEY2|ShiftMask,	XK_h,   spawn,	   SHCMD("i3lock -i ~/Pictures/wallpapers/001.png && systemctl hibernate") },
+	{ MODKEY2|ShiftMask,	XK_p,   spawn,	   SHCMD("systemctl poweroff") },
 
 	{ 0, XF86XK_AudioMute,					spawn,	SHCMD("pactl set-sink-mute @DEFAULT_SINK@ toggle") },
 	{ 0, XF86XK_AudioRaiseVolume,			spawn,	SHCMD("pactl set-sink-volume @DEFAULT_SINK@ +10%") },
