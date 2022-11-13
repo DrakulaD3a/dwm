@@ -110,8 +110,8 @@ static const Key keys[] = {
 	{ 0, XF86XK_AudioRaiseVolume,			spawn,	SHCMD("pactl set-sink-volume @DEFAULT_SINK@ +10%") },
 	{ 0, XF86XK_AudioLowerVolume,			spawn,	SHCMD("pactl set-sink-volume @DEFAULT_SINK@ -10%") },
 	{ 0, XF86XK_AudioMicMute,				spawn,	SHCMD("pactl set-source-mute @DEFAULT_SOURCE@ toggle") },
-	{ 0, XF86XK_MonBrightnessUp,			spawn,	SHCMD("xbackligh -inc 10") },
-	{ 0, XF86XK_MonBrightnessDown,			spawn,	SHCMD("xbackligh -dec 10") },
+	{ 0, XF86XK_MonBrightnessUp,			spawn,	SHCMD("xbacklight -inc 10") },
+	{ 0, XF86XK_MonBrightnessDown,			spawn,	SHCMD("xbacklight -dec 10") },
 };
 
 /* button definitions */
