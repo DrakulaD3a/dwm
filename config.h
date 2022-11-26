@@ -68,7 +68,7 @@ static const char *termcmd[]  = { TERMINAL, NULL };
 
 static const Key keys[] = {
 	/* modifier                     key        function        argument */
-	{ MODKEY,                       XK_d,      spawn,          {.v = dmenucmd } },
+	{ MODKEY,                       XK_p,      spawn,          {.v = dmenucmd } },
 	{ MODKEY,		                XK_Return, spawn,          {.v = termcmd } },
 	{ MODKEY,                       XK_b,      togglebar,      {0} },
 	{ MODKEY,                       XK_j,      focusstack,     {.i = +1 } },
@@ -106,10 +106,10 @@ static const Key keys[] = {
 	{ MODKEY2|ShiftMask,	XK_h,   spawn,	   SHCMD("i3lock -i ~/Pictures/wallpapers/001.png && systemctl hibernate") },
 	{ MODKEY2|ShiftMask,	XK_p,   spawn,	   SHCMD("systemctl poweroff") },
 
-	{ 0, XF86XK_AudioMute,					spawn,	SHCMD("pactl set-sink-mute @DEFAULT_SINK@ toggle") },
-	{ 0, XF86XK_AudioRaiseVolume,			spawn,	SHCMD("pactl set-sink-volume @DEFAULT_SINK@ +10%") },
-	{ 0, XF86XK_AudioLowerVolume,			spawn,	SHCMD("pactl set-sink-volume @DEFAULT_SINK@ -10%") },
-	{ 0, XF86XK_AudioMicMute,				spawn,	SHCMD("pactl set-source-mute @DEFAULT_SOURCE@ toggle") },
+	{ 0, XF86XK_AudioMute,					spawn,	SHCMD("pulsemixer --toggle-mute") },
+	{ 0, XF86XK_AudioRaiseVolume,			spawn,	SHCMD("pulsemixer --change-volume +5") },
+	{ 0, XF86XK_AudioLowerVolume,			spawn,	SHCMD("pulsemixer --change-volume -5") },
+	{ 0, XF86XK_AudioMicMute,				spawn,	SHCMD("pulsemixer --id source-0 --toggle-mute") },
 	{ 0, XF86XK_MonBrightnessUp,			spawn,	SHCMD("xbacklight -inc 10") },
 	{ 0, XF86XK_MonBrightnessDown,			spawn,	SHCMD("xbacklight -dec 10") },
 };
